@@ -171,7 +171,7 @@ func StartAPIServer(cmd *commander.Command, args []string) error {
 	router.HandleFunc("/yap/heb/pipeline", HebrewPipelineHandler)
 	router.HandleFunc("/yap/heb/joint", HebrewJointHandler)
 	var port = os.Getenv("PORT")
-	if port = "" {
+	if port == "" {
 		port = ":8000"
 	} else {
 		port = ":" + port
