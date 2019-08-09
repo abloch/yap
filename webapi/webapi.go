@@ -1,6 +1,7 @@
 package webapi
 
 import (
+	"os"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -169,6 +170,12 @@ func StartAPIServer(cmd *commander.Command, args []string) error {
 	router.HandleFunc("/yap/heb/dep", DepParserHandler)
 	router.HandleFunc("/yap/heb/pipeline", HebrewPipelineHandler)
 	router.HandleFunc("/yap/heb/joint", HebrewJointHandler)
-	log.Fatal(http.ListenAndServe(":8000", router))
+	var port = os.Getenv("PORT")
+	if port = "" {
+		port = ":8000"
+	} else {
+		port = ":" + port
+	}
+	log.Fatal(http.ListenAndServe(port, router))
 	return nil
 }
